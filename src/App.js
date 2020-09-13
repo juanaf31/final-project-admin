@@ -31,11 +31,7 @@ class App extends Component {
 				<Route path="/login" component={Login} />
 				{/* <Route path="/login" component={Login} /> */}
 
-				{this.state.isLoggedIn ? (
-					<Redirect from="/" to="/admin/dashboard" />
-				) : (
-					<Redirect from="/" to="/login" />
-				)}
+				{this.state.isLoggedIn ? <Redirect to="/admin/dashboard" /> : <Redirect to="/login" />}
 			</Switch>
 		);
 	}
