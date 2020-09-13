@@ -17,10 +17,12 @@
 */
 import React, { Component } from "react";
 import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { Redirect } from "react-router";
 
 class AdminNavbarLinks extends Component {
   handleLogout(){
     sessionStorage.setItem('token',null)
+    return <Redirect to='/' />
   }
   render() {
     const notification = (
@@ -72,7 +74,7 @@ class AdminNavbarLinks extends Component {
             <MenuItem divider />
             <MenuItem eventKey={2.5}>Separated link</MenuItem>
           </NavDropdown> */}
-          <NavItem eventKey={3} href="#" onClick={this.handleLogout}>
+          <NavItem eventKey={3} href="/" onClick={this.handleLogout}>
             Log out
           </NavItem>
         </Nav>
