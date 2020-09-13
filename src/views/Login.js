@@ -20,7 +20,9 @@ const Login = () => {
 				sessionStorage.setItem('token', res.data.token);
 
 				// showLoading();
-				setRedirect(true);
+				if (res.data.message === 'Success') {
+					setRedirect(true);
+				}
 				console.log(res.data);
 			})
 			.catch((err) => {
