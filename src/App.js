@@ -17,7 +17,7 @@ class App extends Component {
 	componentWillMount() {
 		const token = sessionStorage.getItem('token');
 		// console.log(token);
-		if (token != 'null') {
+		if (token != null) {
 			this.setState({ isLoggedIn: true });
 		} else {
 			this.setState({ isLoggedIn: false });

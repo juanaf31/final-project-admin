@@ -21,7 +21,7 @@ import { Redirect } from "react-router";
 
 class AdminNavbarLinks extends Component {
   handleLogout(){
-    sessionStorage.setItem('token',null)
+    sessionStorage.removeItem('token')
     return <Redirect to='/' />
   }
   render() {

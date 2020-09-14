@@ -43,6 +43,8 @@ const NotApprovedAssetPagination = (props) => {
 	const [ detail, setDetail ] = useState([]);
 	const [ ID, setID ] = useState('');
 
+	const [ myData, setMyData ] = useState(notApproved);
+
 	const handleDetail = (data) => {
 		setDetail(data);
 		// console.log(detail);
