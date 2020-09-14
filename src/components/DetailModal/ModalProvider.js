@@ -52,7 +52,7 @@ function ModalProvider(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods ID"
+						label="Username"
 						variant="outlined"
 						value={props.data.username}
 						fullWidth
@@ -63,7 +63,7 @@ function ModalProvider(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods Name"
+						label="Fullname"
 						fullWidth
 						variant="outlined"
 						value={props.data.fullname}
@@ -76,7 +76,7 @@ function ModalProvider(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods Quantity"
+						label="Email"
 						fullWidth
 						variant="outlined"
 						value={props.data.email}
@@ -89,7 +89,7 @@ function ModalProvider(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods Capacity"
+						label="Phone Number"
 						variant="outlined"
 						fullWidth
 						value={props.data.phone_number}
@@ -102,7 +102,7 @@ function ModalProvider(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Warehouse ID"
+						label="Born Date"
 						variant="outlined"
 						fullWidth
 						value={props.data.borndate}
@@ -115,7 +115,7 @@ function ModalProvider(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Warehouse ID"
+						label="Address"
 						variant="outlined"
 						fullWidth
 						value={props.data.address}
@@ -128,7 +128,7 @@ function ModalProvider(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Warehouse ID"
+						label="Status"
 						variant="outlined"
 						fullWidth
 						value="Active"

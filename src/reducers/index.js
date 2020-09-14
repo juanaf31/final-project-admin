@@ -4,6 +4,7 @@ import { providerreducer } from './providers/reducers';
 import { assetreducer } from './assets/reducers';
 import { reviewreducer } from './reviews/reducers';
 import { admin } from './account/reducers';
+import { reportreducer } from './report/reducers';
 
 export default combineReducers({
 	// listUsers,
@@ -14,5 +15,6 @@ export default combineReducers({
 	providerreducer,
 	assetreducer,
 	reviewreducer,
-	admin
+	admin,
+	reportreducer
 });

@@ -1,23 +1,57 @@
 import React, { useState, useEffect, useContext } from 'react';
 import ReactDatePicker from 'react-datepicker';
-import { Button, Table } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton, Table, Col } from 'react-bootstrap';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
+import { makeStyles } from '@material-ui/core/styles';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { connect, useSelector } from 'react-redux';
+import { getAssets, getReport } from '../../api';
+import Card from 'components/Card/Card.jsx';
+import ReportPagination from 'components/TablePagination/ReportPagination';
 
-const Datepicker = () => {
+const useStyles = makeStyles((theme) => ({
+	formControl: {
+		margin: theme.spacing(0),
+		minWidth: 120
+	},
+	selectEmpty: {
+		marginTop: theme.spacing(0)
+	}
+}));
+
+const Datepicker = (props) => {
 	const [ startDate, setStartDate ] = useState(new Date());
 	const [ endDate, setEndDate ] = useState(new Date());
 
+	const listAssets = useSelector((state) => state.assetreducer.listAssets);
+	const listReports = useSelector((state) => state.reportreducer.listReports);
+
+	const classes = useStyles();
+	const [ id, setID ] = React.useState('');
+
+	const handleChange = (event) => {
+		setID(event.target.value);
+	};
+
 	useEffect(
 		() => {
+			props.getAssets();
+			// getAssets();
 			// getPeriod(startDate, endDate);
+			console.log(listReports);
 		},
-		[ startDate, endDate ]
+		[ listReports ]
 	);
 	const handleData = () => {
 		let thisStart = moment(startDate).format('YYYY-MM-DD');
 		let thisEnd = moment(endDate).format('YYYY-MM-DD');
-		console.log(thisStart, thisEnd);
+		console.log(thisStart, thisEnd, id);
+		props.getReport(thisStart, thisEnd, id);
 		// getPeriod(thisStart, thisEnd);
 	};
 
@@ -56,6 +90,18 @@ const Datepicker = () => {
 							endDate={endDate}
 							minDate={startDate}
 						/>
+						<FormControl variant="outlined" className={classes.formControl}>
+							<InputLabel id="demo-simple-select-outlined-label">ASSET NAME</InputLabel>
+							<Select
+								labelId="demo-simple-select-outlined-label"
+								id="demo-simple-select-outlined"
+								value={id}
+								onChange={handleChange}
+								label="ASSET NAME"
+							>
+								{listAssets.map((item) => <MenuItem value={item.id}>{item.asset_name}</MenuItem>)}
+							</Select>
+						</FormControl>
 						<div style={{ marginTop: '-5px' }} className="group">
 							<Button
 								variant="primary"
@@ -73,8 +119,24 @@ const Datepicker = () => {
 					</div>
 				</div>
 			</div>
+			<Col md={12}>
+				<Card
+					plain
+					title="Report List"
+					category=""
+					ctTableFullWidth
+					ctTableResponsive
+					content={
+						<div>
+							<ReportPagination data={listReports} />
+						</div>
+					}
+				/>
+			</Col>
 		</div>
 	);
 };
 
-export default Datepicker;
+const mapDispatchToProps = { getAssets, getReport };
+
+export default connect(null, mapDispatchToProps)(Datepicker);

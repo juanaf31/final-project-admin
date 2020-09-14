@@ -52,7 +52,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods ID"
+						label="Asset Name"
 						variant="outlined"
 						value={props.data.asset_name}
 						fullWidth
@@ -63,7 +63,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods Name"
+						label="Asset Area"
 						fullWidth
 						variant="outlined"
 						value={props.data.asset_area}
@@ -76,7 +76,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods Quantity"
+						label="Car Capacity"
 						fullWidth
 						variant="outlined"
 						value={props.data.car_capacity}
@@ -89,7 +89,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Goods Capacity"
+						label="Motorcycle Capacity"
 						variant="outlined"
 						fullWidth
 						value={props.data.motorcycle_capacity}
@@ -102,7 +102,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Warehouse ID"
+						label="Bicycle Capacity"
 						variant="outlined"
 						fullWidth
 						value={props.data.bicycle_capacity}
@@ -115,7 +115,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Warehouse ID"
+						label="Latitude"
 						variant="outlined"
 						fullWidth
 						value={props.data.latitude}
@@ -128,7 +128,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Warehouse ID"
+						label="Longitude"
 						variant="outlined"
 						fullWidth
 						value={props.data.longitude}
@@ -141,7 +141,7 @@ function ModalAsset(props) {
 						}}
 						autoFocus
 						margin="dense"
-						label="Warehouse ID"
+						label="Status"
 						variant="outlined"
 						fullWidth
 						value="Active"

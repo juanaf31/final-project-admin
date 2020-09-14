@@ -11,6 +11,7 @@ export const DELETE_ASSET = 'DELETE_ASSET';
 export const DELETE_REVIEW = 'DELETE_REVIEW';
 export const APPROVE = 'APPROVE';
 export const LOGIN = 'LOGIN';
+export const GET_REPORT = 'GET_REPORT';
 
 export const getUsers = () => {
 	let token = sessionStorage.getItem('token');
@@ -160,6 +161,21 @@ export const deleteReview = (id) => {
 			.then((response) => {
 				// console.log(response.data.response);
 				dispatch({ type: DELETE_REVIEW, payload: response.data.response });
+			})
+			.catch((error) => {
+				throw error;
+			});
+	};
+};
+
+export const getReport = (start, end, id) => {
+	console.log('masuk');
+	return (dispatch) => {
+		return axios
+			.get(`/adminreports/daily?start=${start}&end=${end}&id=${id}`)
+			.then((response) => {
+				console.log(response.data);
+				dispatch({ type: GET_REPORT, payload: response.data.response });
 			})
 			.catch((error) => {
 				throw error;

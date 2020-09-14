@@ -19,19 +19,30 @@ import React, { Component } from "react";
 import { Grid, Row, Col } from "react-bootstrap";
 import { getUsers,getProviders,getAssets,getReviews } from '../api';
 import Card from "components/Card/Card.jsx";
-import UserPagination from "components/TablePagination/UserPagination";
-import ProviderPagination from "components/TablePagination/ProviderPagination";
-import AssetPagination from "components/TablePagination/AssetPagination";
 import ReviewPagination from "components/TablePagination/ReviewPagination"
 import { connect } from 'react-redux';
 import Datepicker from '../components/DatePicker/DatePicker'
+import ReportPagination from "components/TablePagination/ReportPagination";
 
 class ReportList extends Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      clicked:false
+    }
+  }
+  
+  click(){
+    this.setState({
+      clicked:!this.state.clicked
+    })
+  }
+  
   componentDidMount(){
-    this.props.getUsers();
-    this.props.getProviders()
-    this.props.getAssets()
-    this.props.getReviews()
+    // this.props.getUsers();
+    // this.props.getProviders()
+    // this.props.getAssets()
+    // this.props.getReviews()
   }
   render() {
     return (
@@ -39,58 +50,23 @@ class ReportList extends Component {
         <Grid fluid>
           <Row>
           <Datepicker/>
-            <Col md={12}>
+            {/* <Col md={12}>
               <Card
                 plain
-                title="List Of Users"
+                title="Report List"
                 category=""
                 ctTableFullWidth
                 ctTableResponsive
                 content={
                   <div>              
                     
-                    <UserPagination/>
+                    <ReportPagination/>
                   </div>
                 }
               />
-            </Col>
+            </Col> */}
 
-            <Col md={12}>
-              <Card
-                plain
-                title="List Of Providers"
-                category=""
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <ProviderPagination/>
-                }
-              />
-            </Col>
-            <Col md={12}>
-              <Card
-                plain
-                title="List Of Assets"
-                category=""
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <AssetPagination/>
-                }
-              />
-            </Col>
-            <Col md={12}>
-              <Card
-                plain
-                title="List Of Reviews"
-                category=""
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <ReviewPagination/>
-                }
-              />
-            </Col>
+
           </Row>
         </Grid>
       </div>
