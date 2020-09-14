@@ -14,7 +14,7 @@ const Login = () => {
 	};
 
 	const handleLogin = () => {
-		console.log(selected);
+		// console.log(selected);
 		login(selected)
 			.then((res) => {
 				sessionStorage.setItem('token', res.data.token);
@@ -24,7 +24,7 @@ const Login = () => {
 					setRedirect(true);
 				}
 				//
-				console.log(res.data);
+				// console.log(res.data);
 			})
 			.catch((err) => {
 				throw err;
@@ -75,9 +75,7 @@ const Login = () => {
 								</div>
 								<div class="group">
 									<input id="check" type="checkbox" class="check" checked />
-									<label for="check">
-										<span class="icon" /> Keep me Signed in
-									</label>
+									<label for="check">{/* <span class="icon" /> Keep me Signed in */}</label>
 								</div>
 								<div class="group">
 									<input type="submit" class="button" value="Sign In" onClick={handleLogin} />

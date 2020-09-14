@@ -9,6 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { connect, useSelector } from 'react-redux';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Pageview } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
+import ModalProvider from 'components/DetailModal/ModalProvider';
+import { getReviews } from '../../api';
 
 const useStyles = makeStyles({
 	root: {
@@ -19,20 +24,22 @@ const useStyles = makeStyles({
 	}
 });
 
-const ReviewPagination = () => {
+const ReviewPagination = (props) => {
 	const classes = useStyles();
 	const [ page, setPage ] = React.useState(0);
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
 
 	const listReviews = useSelector((state) => state.reviewreducer.listReviews);
 	const [ data, setData ] = useState(listReviews);
-	useEffect(
-		() => {
-			setData(listReviews);
-			console.log(listReviews);
-		},
-		[ listReviews ]
-	);
+
+	const [ modal, setModal ] = useState(false);
+	const [ detail, setDetail ] = useState([]);
+
+	const handleDetail = (data) => {
+		setDetail(data);
+		// console.log(detail);
+		setModal(true);
+	};
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -42,6 +49,11 @@ const ReviewPagination = () => {
 		setRowsPerPage(+event.target.value);
 		setPage(0);
 	};
+	useEffect(() => {
+		props.getReviews();
+		setData(listReviews);
+		// console.log(listReviews);
+	}, []);
 
 	return (
 		<Paper className={classes.root}>
@@ -49,24 +61,25 @@ const ReviewPagination = () => {
 				<Table stickyHeader aria-label="sticky table">
 					<TableHead>
 						<TableRow>
-							<TableCell>Dates</TableCell>
-							<TableCell>USD</TableCell>
-							<TableCell>IDR</TableCell>
-							<TableCell>GBP</TableCell>
-							<TableCell>EUR</TableCell>
+							<TableCell>No.</TableCell>
+							<TableCell>Comment</TableCell>
+							<TableCell>Rating</TableCell>
+							<TableCell align="center">Action</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
 						{(rowsPerPage > 0
 							? listReviews.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							: listReviews).map((row) => (
-							<TableRow key={row.id}>
-								<TableCell>{row.id}</TableCell>
-								<TableCell>{row.id}</TableCell>
-								<TableCell>{row.id}</TableCell>
-								<TableCell>{row.id}</TableCell>
-								<TableCell>{row.id}</TableCell>
-								<TableCell align="right" />
+							: listReviews).map((row, id) => (
+							<TableRow key={id}>
+								<TableCell>{id + 1}</TableCell>
+								<TableCell>{row.comment}</TableCell>
+								<TableCell>{row.rating}</TableCell>
+								<TableCell align="center">
+									<Button variant="contained" color="secondary" startIcon={<DeleteIcon />}>
+										Delete
+									</Button>
+								</TableCell>
 							</TableRow>
 						))}
 					</TableBody>
@@ -85,4 +98,6 @@ const ReviewPagination = () => {
 	);
 };
 
-export default ReviewPagination;
+const mapDispatchToProps = { getReviews };
+
+export default connect(null, mapDispatchToProps)(ReviewPagination);

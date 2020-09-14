@@ -9,9 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { getUsers, getProviders, getAssets, getReviews } from '../../api';
+import { getUsers, deleteUser } from '../../api';
 import { Button } from '@material-ui/core';
 import ModalUser from 'components/DetailModal/ModalUser';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Pageview } from '@material-ui/icons';
 
 const useStyles = makeStyles({
 	root: {
@@ -22,24 +24,17 @@ const useStyles = makeStyles({
 	}
 });
 
-const UserPagination = () => {
+const UserPagination = (props) => {
 	const classes = useStyles();
 	const [ page, setPage ] = React.useState(0);
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
+	const [ ID, setID ] = useState('');
 
 	const listUsers = useSelector((state) => state.userreducer.listUsers);
-	const [ data, setData ] = useState(listUsers);
 
 	const [ modal, setModal ] = useState(false);
 	const [ detail, setDetail ] = useState([]);
 
-	useEffect(
-		() => {
-			setData(listUsers);
-			console.log(listUsers);
-		},
-		[ listUsers ]
-	);
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
 	};
@@ -50,7 +45,8 @@ const UserPagination = () => {
 	};
 
 	const handleDetail = (data) => {
-		setDetail(data.id);
+		setDetail(data);
+		// console.log(detail);
 		setModal(true);
 	};
 
@@ -58,6 +54,17 @@ const UserPagination = () => {
 		setModal(false);
 	};
 
+	const handleDelete = (id) => {
+		props.deleteUser(id);
+		setID(id);
+	};
+
+	useEffect(
+		() => {
+			props.getUsers();
+		},
+		[ ID ]
+	);
 	return (
 		<div>
 			<Paper className={classes.root}>
@@ -69,8 +76,8 @@ const UserPagination = () => {
 								<TableCell>Name</TableCell>
 								<TableCell>Email</TableCell>
 								<TableCell>Username</TableCell>
-								<TableCell>Phone Number</TableCell>
-								<TableCell>Address</TableCell>
+								{/* <TableCell>Phone Number</TableCell>
+								<TableCell>Address</TableCell> */}
 								<TableCell align="center">Action</TableCell>
 							</TableRow>
 						</TableHead>
@@ -83,11 +90,25 @@ const UserPagination = () => {
 									<TableCell>{row.fullname}</TableCell>
 									<TableCell>{row.email}</TableCell>
 									<TableCell>{row.username}</TableCell>
-									<TableCell>{row.phone_number}</TableCell>
-									<TableCell>{row.address}</TableCell>
-									<TableCell align="right">
-										<Button onClick={() => handleDetail(row)}>Detail</Button>
-										<Button>Delete</Button>
+									{/* <TableCell>{row.phone_number}</TableCell>
+									<TableCell>{row.address}</TableCell> */}
+									<TableCell align="center">
+										<Button
+											variant="contained"
+											color="primary"
+											startIcon={<Pageview />}
+											onClick={() => handleDetail(row)}
+										>
+											Detail
+										</Button>
+										<Button
+											variant="contained"
+											color="secondary"
+											startIcon={<DeleteIcon />}
+											onClick={() => handleDelete(row.id)}
+										>
+											Delete
+										</Button>
 									</TableCell>
 								</TableRow>
 							))}
@@ -97,15 +118,18 @@ const UserPagination = () => {
 				<TablePagination
 					rowsPerPageOptions={[ 10, 25, 100 ]}
 					component="div"
-					count={data.length}
+					count={listUsers.length}
 					rowsPerPage={rowsPerPage}
 					page={page}
 					onChangePage={handleChangePage}
 					onChangeRowsPerPage={handleChangeRowsPerPage}
 				/>
 			</Paper>
-			<ModalUser modal={modal} id={detail} closeModal={handleClose} />
+			<ModalUser modal={modal} data={detail} closeModal={handleClose} />
 		</div>
 	);
 };
-export default UserPagination;
+
+const mapDispatchToProps = { getUsers, deleteUser };
+
+export default connect(null, mapDispatchToProps)(UserPagination);

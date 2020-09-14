@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { Typography } from '@material-ui/core';
 
-function ModalUser(props) {
+function ModalAsset(props) {
 	const [ disable, setDisable ] = useState(true);
 
 	const [ selected, setSelected ] = useState(props.data);
@@ -54,7 +54,7 @@ function ModalUser(props) {
 						margin="dense"
 						label="Goods ID"
 						variant="outlined"
-						value={props.data.username}
+						value={props.data.asset_name}
 						fullWidth
 					/>
 					<TextField
@@ -66,7 +66,7 @@ function ModalUser(props) {
 						label="Goods Name"
 						fullWidth
 						variant="outlined"
-						value={props.data.fullname}
+						value={props.data.asset_area}
 						// onChange={(e) => handleChange('goods_name', e.target.value)}
 					/>
 					<TextField
@@ -79,7 +79,7 @@ function ModalUser(props) {
 						label="Goods Quantity"
 						fullWidth
 						variant="outlined"
-						value={props.data.email}
+						value={props.data.car_capacity}
 						// onChange={(e) => handleChange('goods_quantity', e.target.value)}
 					/>
 					<TextField
@@ -92,7 +92,7 @@ function ModalUser(props) {
 						label="Goods Capacity"
 						variant="outlined"
 						fullWidth
-						value={props.data.phone_number}
+						value={props.data.motorcycle_capacity}
 						// onChange={(e) => handleChange('goods_capacity', e.target.value)}
 					/>
 					<TextField
@@ -105,7 +105,7 @@ function ModalUser(props) {
 						label="Warehouse ID"
 						variant="outlined"
 						fullWidth
-						value={props.data.borndate}
+						value={props.data.bicycle_capacity}
 						// onChange={(e) => handleChange('warehouse_id', e.target.value)}
 					/>
 					<TextField
@@ -118,7 +118,20 @@ function ModalUser(props) {
 						label="Warehouse ID"
 						variant="outlined"
 						fullWidth
-						value={props.data.address}
+						value={props.data.latitude}
+						// onChange={(e) => handleChange('warehouse_id', e.target.value)}
+					/>
+					<TextField
+						multiline
+						InputProps={{
+							readOnly: true
+						}}
+						autoFocus
+						margin="dense"
+						label="Warehouse ID"
+						variant="outlined"
+						fullWidth
+						value={props.data.longitude}
 						// onChange={(e) => handleChange('warehouse_id', e.target.value)}
 					/>
 					<TextField
@@ -160,4 +173,4 @@ function ModalUser(props) {
 		</div>
 	);
 }
-export default ModalUser;
+export default ModalAsset;

@@ -48,6 +48,13 @@ class Dashboard extends Component {
     }
     return legend;
   }
+  constructor(props) {
+    super(props);
+    this.state={
+      // token: sessionStorage.getItem('token')
+    }
+  }
+   
   componentDidMount() {
     this.props.getUsers();
     this.props.getProviders()
@@ -88,11 +95,11 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="fa fa-twitter text-info" />}
+                bigIcon={<i className="fa fa-star text-info" />}
                 statsText="Total Reviews"
                 statsValue={this.props.listReviews.length}
-                statsIcon={<i className="fa fa-refresh" />}
-                statsIconText="Updated now"
+                // statsIcon={<i className="fa fa-refresh" />}
+                // statsIconText="Updated now"
               />
             </Col>
           </Row>
@@ -140,7 +147,7 @@ class Dashboard extends Component {
             </Col>
           </Row>
 
-          <Row>
+          {/* <Row>
             <Col md={6}>
               <Card
                 id="chartActivity"
@@ -179,7 +186,7 @@ class Dashboard extends Component {
                 }
               />
             </Col>
-          </Row>
+          </Row> */}
         </Grid>
       </div>
     );

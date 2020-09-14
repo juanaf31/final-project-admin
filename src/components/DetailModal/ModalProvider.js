@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 import { Typography } from '@material-ui/core';
 
-function ModalUser(props) {
+function ModalProvider(props) {
 	const [ disable, setDisable ] = useState(true);
 
 	const [ selected, setSelected ] = useState(props.data);
@@ -160,4 +160,4 @@ function ModalUser(props) {
 		</div>
 	);
 }
-export default ModalUser;
+export default ModalProvider;

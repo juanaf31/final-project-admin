@@ -29,10 +29,10 @@ import ReviewPagination from "components/TablePagination/ReviewPagination"
 
 class TableList extends Component {
   componentDidMount(){
-    this.props.getUsers();
-    this.props.getProviders()
-    this.props.getAssets()
-    this.props.getReviews()
+    // this.props.getUsers();
+    // this.props.getProviders()
+    // this.props.getAssets()
+    // this.props.getReviews()
   }
   render() {
     return (

@@ -9,6 +9,12 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { connect, useSelector } from 'react-redux';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { Pageview } from '@material-ui/icons';
+import { Button } from '@material-ui/core';
+import ModalProvider from 'components/DetailModal/ModalProvider';
+import ModalAsset from 'components/DetailModal/ModalAsset';
+import { getAssets, deleteAsset } from '../../api';
 
 const useStyles = makeStyles({
 	root: {
@@ -19,20 +25,25 @@ const useStyles = makeStyles({
 	}
 });
 
-const AssetPagination = () => {
+const AssetPagination = (props) => {
 	const classes = useStyles();
 	const [ page, setPage ] = React.useState(0);
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
 
 	const listAssets = useSelector((state) => state.assetreducer.listAssets);
-	const [ data, setData ] = useState(listAssets);
-	useEffect(
-		() => {
-			setData(listAssets);
-			console.log(listAssets);
-		},
-		[ listAssets ]
-	);
+	const [ ID, setID ] = useState('');
+	const [ modal, setModal ] = useState(false);
+	const [ detail, setDetail ] = useState([]);
+
+	const handleClose = () => {
+		setModal(false);
+	};
+
+	const handleDetail = (data) => {
+		setDetail(data);
+		// console.log(detail);
+		setModal(true);
+	};
 
 	const handleChangePage = (event, newPage) => {
 		setPage(newPage);
@@ -43,54 +54,80 @@ const AssetPagination = () => {
 		setPage(0);
 	};
 
+	const handleDelete = (id) => {
+		props.deleteAsset(id);
+		setID(id);
+	};
+
+	useEffect(
+		() => {
+			props.getAssets();
+		},
+		[ ID ]
+	);
 	return (
-		<Paper className={classes.root}>
-			<TableContainer className={classes.container}>
-				<Table stickyHeader aria-label="sticky table">
-					<TableHead>
-						<TableRow>
-							<TableCell>Dates</TableCell>
-							<TableCell>USD</TableCell>
-							<TableCell>IDR</TableCell>
-							<TableCell>GBP</TableCell>
-							<TableCell>EUR</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{/* {(rowsPerPage > 0
-							? periodeDate.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-							: periodeDate).map((row) => (
-							<TableRow key={row}>
-								<TableCell>{row}</TableCell>
-								<TableCell>USD</TableCell>
-								<TableCell>IDR</TableCell>
-								<TableCell>GBP</TableCell>
-								<TableCell>EUR</TableCell>
-								<TableCell align="right" />
+		<div>
+			<Paper className={classes.root}>
+				<TableContainer className={classes.container}>
+					<Table stickyHeader aria-label="sticky table">
+						<TableHead>
+							<TableRow>
+								<TableCell>No.</TableCell>
+								<TableCell>Asset Name</TableCell>
+								<TableCell>Car Capacity</TableCell>
+								<TableCell>Motorcycle Capacity</TableCell>
+								<TableCell>Bicycle Capacity</TableCell>
+								<TableCell align="center">Action</TableCell>
 							</TableRow>
-						))} */}
-					</TableBody>
-				</Table>
-			</TableContainer>
-			<TablePagination
-				rowsPerPageOptions={[ 10, 25, 100 ]}
-				component="div"
-				count={listAssets.length}
-				rowsPerPage={rowsPerPage}
-				page={page}
-				onChangePage={handleChangePage}
-				onChangeRowsPerPage={handleChangeRowsPerPage}
-			/>
-		</Paper>
+						</TableHead>
+						<TableBody>
+							{(rowsPerPage > 0
+								? listAssets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+								: listAssets).map((row, id) => (
+								<TableRow key={id}>
+									<TableCell>{id + 1}</TableCell>
+									<TableCell>{row.asset_name}</TableCell>
+									<TableCell>{row.car_capacity}</TableCell>
+									<TableCell>{row.motorcycle_capacity}</TableCell>
+									<TableCell>{row.bicycle_capacity}</TableCell>
+									<TableCell align="center">
+										<Button
+											variant="contained"
+											color="primary"
+											startIcon={<Pageview />}
+											onClick={() => handleDetail(row)}
+										>
+											Detail
+										</Button>
+										<Button
+											variant="contained"
+											color="secondary"
+											startIcon={<DeleteIcon />}
+											onClick={() => handleDelete(row.id)}
+										>
+											Delete
+										</Button>
+									</TableCell>
+								</TableRow>
+							))}
+						</TableBody>
+					</Table>
+				</TableContainer>
+				<TablePagination
+					rowsPerPageOptions={[ 10, 25, 100 ]}
+					component="div"
+					count={listAssets.length}
+					rowsPerPage={rowsPerPage}
+					page={page}
+					onChangePage={handleChangePage}
+					onChangeRowsPerPage={handleChangeRowsPerPage}
+				/>
+			</Paper>
+			<ModalAsset modal={modal} data={detail} closeModal={handleClose} />
+		</div>
 	);
 };
 
-// const mapStateToProps = (state) => ({
-// 	listUsers: state.listUsers,
-// 	listProviders: state.listProviders,
-// 	listAssets: state.listAssets,
-// 	listReviews: state.listReviews
-// });
+const mapDispatchToProps = { getAssets, deleteAsset };
 
-// const mapDispatchToProps = { getUsers, getProviders, getAssets, getReviews };
-export default AssetPagination;
+export default connect(null, mapDispatchToProps)(AssetPagination);
