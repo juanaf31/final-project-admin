@@ -1,6 +1,7 @@
 import { login } from '../api';
 import React, { Component, useEffect, useState } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 import { Redirect } from 'react-router';
 const Login = () => {
 	const [ selected, setSelected ] = useState({
@@ -21,7 +22,21 @@ const Login = () => {
 
 				// showLoading();
 				if (res.data.message === 'Success') {
-					setRedirect(true);
+					Swal.fire({
+						// position: 'top-end',
+						icon: 'success',
+						title: 'Login Success',
+						showConfirmButton: false,
+						timer: 1500
+					}).then(() => {
+						setRedirect(true);
+					});
+				} else {
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: 'Check Your Username or Password'
+					});
 				}
 				//
 				// console.log(res.data);
