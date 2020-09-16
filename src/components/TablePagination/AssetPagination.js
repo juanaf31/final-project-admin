@@ -72,25 +72,18 @@ const AssetPagination = (props) => {
 				props.deleteAsset(id);
 				setData(listAssets);
 				Swal.fire('Deleted!', 'Asset has been deleted.', 'success').then((result) => {
-					// if (result.value) {
-					// 	console.log('tes');
-					// }
+					if (result.value) {
+						// console.log('tes');
+					}
+					props.getAssets();
 				});
 			}
 		});
 	};
-	// console.log('render');
-	useEffect(
-		() => {
-			// console.log('render useEffect');
-			props.getAssets();
-			return () => {
-				// console.log('render di return useeffect');
-				props.getAssets();
-			};
-		},
-		[ data ]
-	);
+
+	useEffect(() => {
+		props.getAssets();
+	}, []);
 	return (
 		<div>
 			{console.log('render di return')}

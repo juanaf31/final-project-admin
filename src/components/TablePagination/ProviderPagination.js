@@ -75,22 +75,15 @@ const ProviderPagination = (props) => {
 					// if (result.value) {
 					// 	console.log('tes');
 					// }
+					props.getProviders();
 				});
 			}
 		});
 	};
 
-	useEffect(
-		() => {
-			console.log('render useEffect');
-			props.getProviders();
-			return () => {
-				console.log('render di return useeffect');
-				props.getProviders();
-			};
-		},
-		[ data ]
-	);
+	useEffect(() => {
+		props.getProviders();
+	}, []);
 	return (
 		<div>
 			<Paper className={classes.root}>

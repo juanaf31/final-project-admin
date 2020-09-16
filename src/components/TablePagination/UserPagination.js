@@ -29,7 +29,6 @@ const UserPagination = (props) => {
 	const classes = useStyles();
 	const [ page, setPage ] = React.useState(0);
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
-	const [ data, setData ] = useState([]);
 
 	const listUsers = useSelector((state) => state.userreducer.listUsers);
 
@@ -67,25 +66,16 @@ const UserPagination = (props) => {
 		}).then((result) => {
 			if (result.value) {
 				props.deleteUser(id);
-				setData(listUsers);
 				Swal.fire('Deleted!', 'User has been deleted.', 'success').then((result) => {
-					// if (result.value) {
-					// 	console.log('tes');
-					// }
+					props.getUsers();
 				});
 			}
 		});
 	};
 
-	useEffect(
-		() => {
-			props.getUsers();
-			return () => {
-				props.getUsers();
-			};
-		},
-		[ data ]
-	);
+	useEffect(() => {
+		props.getUsers();
+	}, []);
 	return (
 		<div>
 			<Paper className={classes.root}>
