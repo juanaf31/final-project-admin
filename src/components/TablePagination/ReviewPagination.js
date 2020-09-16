@@ -49,7 +49,7 @@ const ReviewPagination = (props) => {
 			if (result.value) {
 				deleteReview(id);
 				setData(listReviews);
-				Swal.fire('Deleted!', 'Todo List has been deleted.', 'success').then((result) => {
+				Swal.fire('Deleted!', 'Review has been deleted.', 'success').then((result) => {
 					// if (result.value) {
 					// 	console.log('tes');
 					// }

@@ -68,7 +68,7 @@ const UserPagination = (props) => {
 			if (result.value) {
 				props.deleteUser(id);
 				setData(listUsers);
-				Swal.fire('Deleted!', 'Todo List has been deleted.', 'success').then((result) => {
+				Swal.fire('Deleted!', 'User has been deleted.', 'success').then((result) => {
 					// if (result.value) {
 					// 	console.log('tes');
 					// }

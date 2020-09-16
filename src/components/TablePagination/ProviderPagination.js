@@ -71,7 +71,7 @@ const ProviderPagination = (props) => {
 				props.deleteProvider(id);
 				setData(listProviders);
 
-				Swal.fire('Deleted!', 'Todo List has been deleted.', 'success').then((result) => {
+				Swal.fire('Deleted!', 'Provider has been deleted.', 'success').then((result) => {
 					// if (result.value) {
 					// 	console.log('tes');
 					// }

@@ -71,7 +71,7 @@ const AssetPagination = (props) => {
 			if (result.value) {
 				props.deleteAsset(id);
 				setData(listAssets);
-				Swal.fire('Deleted!', 'Todo List has been deleted.', 'success').then((result) => {
+				Swal.fire('Deleted!', 'Asset has been deleted.', 'success').then((result) => {
 					// if (result.value) {
 					// 	console.log('tes');
 					// }
