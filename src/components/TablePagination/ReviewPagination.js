@@ -13,7 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { Pageview } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
 import ModalProvider from 'components/DetailModal/ModalProvider';
-import { getReviews } from '../../api';
+import { getReviews, deleteReview } from '../../api';
 
 const useStyles = makeStyles({
 	root: {
@@ -30,15 +30,14 @@ const ReviewPagination = (props) => {
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
 
 	const listReviews = useSelector((state) => state.reviewreducer.listReviews);
-	const [ data, setData ] = useState(listReviews);
+	const [ data, setData ] = useState([]);
 
 	const [ modal, setModal ] = useState(false);
 	const [ detail, setDetail ] = useState([]);
 
-	const handleDetail = (data) => {
-		setDetail(data);
-		// console.log(detail);
-		setModal(true);
+	const handleDelete = (id) => {
+		deleteReview(id);
+		setData(listReviews);
 	};
 
 	const handleChangePage = (event, newPage) => {
@@ -49,11 +48,17 @@ const ReviewPagination = (props) => {
 		setRowsPerPage(+event.target.value);
 		setPage(0);
 	};
-	useEffect(() => {
-		props.getReviews();
-		setData(listReviews);
-		// console.log(listReviews);
-	}, []);
+	useEffect(
+		() => {
+			console.log('render useEffect');
+			props.getReviews();
+			return () => {
+				console.log('render di return useeffect');
+				props.getReviews();
+			};
+		},
+		[ data ]
+	);
 
 	return (
 		<Paper className={classes.root}>
@@ -76,7 +81,12 @@ const ReviewPagination = (props) => {
 								<TableCell>{row.comment}</TableCell>
 								<TableCell>{row.rating}</TableCell>
 								<TableCell align="center">
-									<Button variant="contained" color="secondary" startIcon={<DeleteIcon />}>
+									<Button
+										variant="contained"
+										color="secondary"
+										startIcon={<DeleteIcon />}
+										onClick={() => handleDelete(row.id)}
+									>
 										Delete
 									</Button>
 								</TableCell>
@@ -98,6 +108,6 @@ const ReviewPagination = (props) => {
 	);
 };
 
-const mapDispatchToProps = { getReviews };
+const mapDispatchToProps = { getReviews, deleteReview };
 
 export default connect(null, mapDispatchToProps)(ReviewPagination);

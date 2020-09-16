@@ -28,7 +28,7 @@ const UserPagination = (props) => {
 	const classes = useStyles();
 	const [ page, setPage ] = React.useState(0);
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
-	const [ ID, setID ] = useState('');
+	const [ data, setData ] = useState([]);
 
 	const listUsers = useSelector((state) => state.userreducer.listUsers);
 
@@ -56,14 +56,17 @@ const UserPagination = (props) => {
 
 	const handleDelete = (id) => {
 		props.deleteUser(id);
-		setID(id);
+		setData(listUsers);
 	};
 
 	useEffect(
 		() => {
 			props.getUsers();
+			return () => {
+				props.getUsers();
+			};
 		},
-		[ ID ]
+		[ data ]
 	);
 	return (
 		<div>
@@ -76,8 +79,6 @@ const UserPagination = (props) => {
 								<TableCell>Name</TableCell>
 								<TableCell>Email</TableCell>
 								<TableCell>Username</TableCell>
-								{/* <TableCell>Phone Number</TableCell>
-								<TableCell>Address</TableCell> */}
 								<TableCell align="center">Action</TableCell>
 							</TableRow>
 						</TableHead>

@@ -30,10 +30,13 @@ const ProviderPagination = (props) => {
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
 
 	const listProviders = useSelector((state) => state.providerreducer.listProviders);
+	const [ data, setData ] = useState([]);
 
 	const [ modal, setModal ] = useState(false);
 	const [ detail, setDetail ] = useState([]);
-	const [ ID, setID ] = useState('');
+	// const [ ID, setID ] = useState('');
+	// const [ mydata, setMydata ] = useState('');
+	const [ clicked, setClicked ] = useState(false);
 
 	const handleDetail = (data) => {
 		setDetail(data);
@@ -55,15 +58,20 @@ const ProviderPagination = (props) => {
 
 	const handleDelete = (id) => {
 		props.deleteProvider(id);
-		setID(id);
+		setData(listProviders);
+		// setID(id);
 	};
 
 	useEffect(
 		() => {
+			console.log('render useEffect');
 			props.getProviders();
-			// console.log(listProviders);
+			return () => {
+				console.log('render di return useeffect');
+				props.getProviders();
+			};
 		},
-		[ ID ]
+		[ data ]
 	);
 	return (
 		<div>

@@ -31,14 +31,13 @@ const AssetPagination = (props) => {
 	const [ rowsPerPage, setRowsPerPage ] = React.useState(10);
 
 	const listAssets = useSelector((state) => state.assetreducer.listAssets);
-	const [ ID, setID ] = useState('');
+	const [ data, setData ] = useState([]);
 	const [ modal, setModal ] = useState(false);
 	const [ detail, setDetail ] = useState([]);
-
 	const handleClose = () => {
 		setModal(false);
 	};
-
+	// props.getAssets();
 	const handleDetail = (data) => {
 		setDetail(data);
 		// console.log(detail);
@@ -54,19 +53,30 @@ const AssetPagination = (props) => {
 		setPage(0);
 	};
 
-	const handleDelete = (id) => {
-		props.deleteAsset(id);
-		setID(id);
+	const getData = () => {
+		console.log(1 + 1);
 	};
 
+	const handleDelete = (id) => {
+		props.deleteAsset(id);
+		setData(listAssets);
+	};
+	// console.log('render');
 	useEffect(
 		() => {
+			console.log('render useEffect');
 			props.getAssets();
+			return () => {
+				console.log('render di return useeffect');
+				props.getAssets();
+			};
 		},
-		[ ID ]
+		[ data ]
 	);
 	return (
 		<div>
+			{console.log('render di return')}
+			{/* <button onClick={handleDelete}>Del</button> */}
 			<Paper className={classes.root}>
 				<TableContainer className={classes.container}>
 					<Table stickyHeader aria-label="sticky table">
@@ -83,7 +93,7 @@ const AssetPagination = (props) => {
 						<TableBody>
 							{(rowsPerPage > 0
 								? listAssets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								: listAssets).map((row, id) => (
+								: listAssets.data).map((row, id) => (
 								<TableRow key={id}>
 									<TableCell>{id + 1}</TableCell>
 									<TableCell>{row.asset_name}</TableCell>
@@ -128,6 +138,7 @@ const AssetPagination = (props) => {
 	);
 };
 
+// const mapStateToProps = (state) => ({ listAssets: state.assetreducer.listAssets });
 const mapDispatchToProps = { getAssets, deleteAsset };
 
 export default connect(null, mapDispatchToProps)(AssetPagination);

@@ -45,6 +45,7 @@ export const getProviders = () => {
 
 export const getAssets = () => {
 	let token = sessionStorage.getItem('token');
+	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.get('/accountmanagement/allassets', { headers: { Authorization: `Bearer ${token}` } })
@@ -64,7 +65,7 @@ export const getReviews = () => {
 		return axios
 			.get('/accountmanagement/allreviews', { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log('actions', response.data.response);
+				console.log('actions', response.data.response);
 				dispatch({ type: RECEIVE_REVIEWS, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -90,7 +91,7 @@ export const getAssetsNotApproved = () => {
 
 export const approve = (id) => {
 	let token = sessionStorage.getItem('token');
-	console.log('masuk approve');
+	// console.log('masuk approve');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/approveasset/${id}`, { headers: { Authorization: `Bearer ${token}` } })
@@ -106,7 +107,7 @@ export const approve = (id) => {
 
 export const deleteUser = (id) => {
 	let token = sessionStorage.getItem('token');
-	console.log('masuk');
+	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deleteuser/${id}`, { headers: { Authorization: `Bearer ${token}` } })
@@ -122,7 +123,7 @@ export const deleteUser = (id) => {
 
 export const deleteProvider = (id) => {
 	let token = sessionStorage.getItem('token');
-	console.log('masuk');
+	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deleteprovider/${id}`, { headers: { Authorization: `Bearer ${token}` } })
@@ -138,7 +139,7 @@ export const deleteProvider = (id) => {
 
 export const deleteAsset = (id) => {
 	let token = sessionStorage.getItem('token');
-	console.log('masuk');
+	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deleteasset/${id}`, { headers: { Authorization: `Bearer ${token}` } })
@@ -154,12 +155,13 @@ export const deleteAsset = (id) => {
 
 export const deleteReview = (id) => {
 	let token = sessionStorage.getItem('token');
-	console.log('masuk');
+	// console.log('masuk delete review');
+	// console.log(id);
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deletecomment/${id}`, { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log(response.data.response);
+				console.log('response', response);
 				dispatch({ type: DELETE_REVIEW, payload: response.data.response });
 			})
 			.catch((error) => {

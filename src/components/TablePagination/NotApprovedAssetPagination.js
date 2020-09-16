@@ -41,9 +41,7 @@ const NotApprovedAssetPagination = (props) => {
 
 	const [ modal, setModal ] = useState(false);
 	const [ detail, setDetail ] = useState([]);
-	const [ ID, setID ] = useState('');
-
-	const [ myData, setMyData ] = useState(notApproved);
+	const [ data, setData ] = useState([]);
 
 	const handleDetail = (data) => {
 		setDetail(data);
@@ -65,15 +63,19 @@ const NotApprovedAssetPagination = (props) => {
 
 	const handleApprove = (id) => {
 		props.approve(id);
-		setID(id);
+		setData(notApproved);
 	};
 
 	useEffect(
 		() => {
+			// console.log('render useEffect');
 			props.getAssetsNotApproved();
-			// console.log(listProviders);
+			return () => {
+				// console.log('render di return useeffect');
+				props.getAssetsNotApproved();
+			};
 		},
-		[ ID ]
+		[ data ]
 	);
 	return (
 		<div>
