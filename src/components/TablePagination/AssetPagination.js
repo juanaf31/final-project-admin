@@ -15,6 +15,7 @@ import { Button } from '@material-ui/core';
 import ModalProvider from 'components/DetailModal/ModalProvider';
 import ModalAsset from 'components/DetailModal/ModalAsset';
 import { getAssets, deleteAsset } from '../../api';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles({
 	root: {
@@ -58,16 +59,33 @@ const AssetPagination = (props) => {
 	};
 
 	const handleDelete = (id) => {
-		props.deleteAsset(id);
-		setData(listAssets);
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.value) {
+				props.deleteAsset(id);
+				setData(listAssets);
+				Swal.fire('Deleted!', 'Todo List has been deleted.', 'success').then((result) => {
+					// if (result.value) {
+					// 	console.log('tes');
+					// }
+				});
+			}
+		});
 	};
 	// console.log('render');
 	useEffect(
 		() => {
-			console.log('render useEffect');
+			// console.log('render useEffect');
 			props.getAssets();
 			return () => {
-				console.log('render di return useeffect');
+				// console.log('render di return useeffect');
 				props.getAssets();
 			};
 		},

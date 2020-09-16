@@ -14,6 +14,7 @@ import { Pageview } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
 import ModalProvider from 'components/DetailModal/ModalProvider';
 import { getProviders, deleteProvider } from '../../api';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles({
 	root: {
@@ -57,9 +58,26 @@ const ProviderPagination = (props) => {
 	};
 
 	const handleDelete = (id) => {
-		props.deleteProvider(id);
-		setData(listProviders);
-		// setID(id);
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.value) {
+				props.deleteProvider(id);
+				setData(listProviders);
+
+				Swal.fire('Deleted!', 'Todo List has been deleted.', 'success').then((result) => {
+					// if (result.value) {
+					// 	console.log('tes');
+					// }
+				});
+			}
+		});
 	};
 
 	useEffect(

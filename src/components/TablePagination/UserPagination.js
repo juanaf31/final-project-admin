@@ -14,6 +14,7 @@ import { Button } from '@material-ui/core';
 import ModalUser from 'components/DetailModal/ModalUser';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Pageview } from '@material-ui/icons';
+import Swal from 'sweetalert2';
 
 const useStyles = makeStyles({
 	root: {
@@ -55,8 +56,25 @@ const UserPagination = (props) => {
 	};
 
 	const handleDelete = (id) => {
-		props.deleteUser(id);
-		setData(listUsers);
+		Swal.fire({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, delete it!'
+		}).then((result) => {
+			if (result.value) {
+				props.deleteUser(id);
+				setData(listUsers);
+				Swal.fire('Deleted!', 'Todo List has been deleted.', 'success').then((result) => {
+					// if (result.value) {
+					// 	console.log('tes');
+					// }
+				});
+			}
+		});
 	};
 
 	useEffect(
