@@ -66,7 +66,11 @@ export const getReviews = () => {
 			.get('/accountmanagement/allreviews', { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
 				console.log('actions', response.data.response);
-				dispatch({ type: RECEIVE_REVIEWS, payload: response.data.response });
+
+				dispatch({
+					type: RECEIVE_REVIEWS,
+					payload: response.data.response
+				});
 			})
 			.catch((error) => {
 				throw error;

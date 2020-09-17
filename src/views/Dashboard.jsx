@@ -36,6 +36,7 @@ import {
 } from "variables/Variables.jsx";
 import { getUsers,getProviders,getAssets,getReviews } from '../api';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 class Dashboard extends Component {
   createLegend(json) {
@@ -48,27 +49,59 @@ class Dashboard extends Component {
     }
     return legend;
   }
+
+  ratings(list){
+    var rating = []
+    for(var i=0;i<list.length;i++){
+      rating.push(Number(list[i].rating))
+    }
+    return rating
+  }
+
+  ratingTime(list){
+    
+    var ratingDate=[]
+    for(var i=0;i<list.length;i++){
+      let date = moment(list[i].created_at).format('YYYY-MM-DD');
+      ratingDate.push(date)
+    } 
+    return ratingDate
+  }
+
   constructor(props) {
     super(props);
     this.state={
       // token: sessionStorage.getItem('token')
+      dataMyPie: {
+        labels: [this.props.listUsers.length, this.props.listProviders.length, this.props.listAssets.length],
+        series: [this.props.listUsers.length, this.props.listProviders.length, this.props.listAssets.length]
+      },
+      legendPie : {
+        names: ["users", "providers", "assets"],
+        types: ["info", "danger", "warning"]
+      }
     }
   }
+
    
   componentDidMount() {
     this.props.getUsers();
     this.props.getProviders()
     this.props.getAssets()
     this.props.getReviews()
-	}
+    console.log(this.props.listReviews)
+    
+  }
+  
   render() {
+    
     return (
       <div className="content">
         <Grid fluid>
           <Row>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-users text-warning" />}
+                bigIcon={<i className="pe-7s-users text-info" />}
                 statsText="Total Users"
                 statsValue={this.props.listUsers.length}
                 // statsIcon={<i className="fa fa-refresh" />}
@@ -86,7 +119,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="pe-7s-map-2 text-success" />}
+                bigIcon={<i className="pe-7s-map-2 text-warning" />}
                 statsText="Total Assets"
                 statsValue={this.props.listAssets.length}
                 // statsIcon={<i className="fa fa-clock-o" />}
@@ -95,7 +128,7 @@ class Dashboard extends Component {
             </Col>
             <Col lg={3} sm={6}>
               <StatsCard
-                bigIcon={<i className="fa fa-star text-info" />}
+                bigIcon={<i className="fa fa-star text-success" />}
                 statsText="Total Reviews"
                 statsValue={this.props.listReviews.length}
                 // statsIcon={<i className="fa fa-refresh" />}
@@ -114,7 +147,9 @@ class Dashboard extends Component {
                 content={
                   <div className="ct-chart">
                     <ChartistGraph
-                      data={dataSales}
+                      data={{labels:
+                          this.ratingTime(this.props.listReviews)
+                        ,series:[this.ratings(this.props.listReviews)]}}
                       type="Line"
                       options={optionsSales}
                       responsiveOptions={responsiveSales}
@@ -128,20 +163,19 @@ class Dashboard extends Component {
             </Col>
             <Col md={4}>
               <Card
-                statsIcon="fa fa-clock-o"
-                title="Email Statistics"
-                category="Last Campaign Performance"
-                stats="Campaign sent 2 days ago"
+                title="Statistics"
+                category=""
+                stats="Total"
                 content={
                   <div
                     id="chartPreferences"
                     className="ct-chart ct-perfect-fourth"
                   >
-                    <ChartistGraph data={dataPie} type="Pie" />
+                    <ChartistGraph data={{labels:[this.props.listUsers.length, this.props.listProviders.length, this.props.listAssets.length],series:[this.props.listUsers.length, this.props.listProviders.length, this.props.listAssets.length]}} type="Pie" />
                   </div>
                 }
                 legend={
-                  <div className="legend">{this.createLegend(legendPie)}</div>
+                  <div className="legend">{this.createLegend(this.state.legendPie)}</div>
                 }
               />
             </Col>
@@ -197,7 +231,8 @@ const mapStateToProps = (state) => ({
   listUsers: state.userreducer.listUsers,
   listProviders : state.providerreducer.listProviders,
   listAssets : state.assetreducer.listAssets,
-  listReviews: state.reviewreducer.listReviews
+  listReviews: state.reviewreducer.listReviews,
+  ratings:state.reviewreducer.ratings
 });
 
 const mapDispatchToProps = { getUsers,getProviders,getAssets,getReviews };
