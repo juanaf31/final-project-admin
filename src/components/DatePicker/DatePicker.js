@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDatePicker from 'react-datepicker';
-import { Button, Dropdown, DropdownButton, Table, Col } from 'react-bootstrap';
+import { Button, Col } from 'react-bootstrap';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { connect, useSelector } from 'react-redux';
@@ -41,18 +40,13 @@ const Datepicker = (props) => {
 	useEffect(
 		() => {
 			props.getAssets();
-			// getAssets();
-			// getPeriod(startDate, endDate);
-			console.log(listReports);
 		},
 		[ listReports ]
 	);
 	const handleData = () => {
 		let thisStart = moment(startDate).format('YYYY-MM-DD');
 		let thisEnd = moment(endDate).format('YYYY-MM-DD');
-		console.log(thisStart, thisEnd, id);
 		props.getReport(thisStart, thisEnd, id);
-		// getPeriod(thisStart, thisEnd);
 	};
 
 	return (

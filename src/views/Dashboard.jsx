@@ -21,18 +21,12 @@ import { Grid, Row, Col } from "react-bootstrap";
 
 import { Card } from "components/Card/Card.jsx";
 import { StatsCard } from "components/StatsCard/StatsCard.jsx";
-import { Tasks } from "components/Tasks/Tasks.jsx";
 import {
-  dataPie,
-  legendPie,
-  dataSales,
+ 
   optionsSales,
   responsiveSales,
   legendSales,
-  dataBar,
-  optionsBar,
-  responsiveBar,
-  legendBar
+ 
 } from "variables/Variables.jsx";
 import { getUsers,getProviders,getAssets,getReviews } from '../api';
 import { connect } from 'react-redux';
@@ -89,7 +83,6 @@ class Dashboard extends Component {
     this.props.getProviders()
     this.props.getAssets()
     this.props.getReviews()
-    console.log(this.props.listReviews)
     
   }
   
@@ -139,17 +132,15 @@ class Dashboard extends Component {
           <Row>
             <Col md={8}>
               <Card
-                statsIcon="fa fa-history"
                 id="chartHours"
-                title="Users Behavior"
-                category="24 Hours performance"
-                stats="Updated 3 minutes ago"
+                title="Users Reviews"
+                category=""
                 content={
                   <div className="ct-chart">
                     <ChartistGraph
                       data={{labels:
                           this.ratingTime(this.props.listReviews)
-                        ,series:[this.ratings(this.props.listReviews)]}}
+                        ,series:[[],[],[],[],this.ratings(this.props.listReviews)]}}
                       type="Line"
                       options={optionsSales}
                       responsiveOptions={responsiveSales}
@@ -165,7 +156,7 @@ class Dashboard extends Component {
               <Card
                 title="Statistics"
                 category=""
-                stats="Total"
+                stats="Total Users, Providers, and Assets"
                 content={
                   <div
                     id="chartPreferences"
@@ -180,47 +171,6 @@ class Dashboard extends Component {
               />
             </Col>
           </Row>
-
-          {/* <Row>
-            <Col md={6}>
-              <Card
-                id="chartActivity"
-                title="2014 Sales"
-                category="All products including Taxes"
-                stats="Data information certified"
-                statsIcon="fa fa-check"
-                content={
-                  <div className="ct-chart">
-                    <ChartistGraph
-                      data={dataBar}
-                      type="Bar"
-                      options={optionsBar}
-                      responsiveOptions={responsiveBar}
-                    />
-                  </div>
-                }
-                legend={
-                  <div className="legend">{this.createLegend(legendBar)}</div>
-                }
-              />
-            </Col>
-
-            <Col md={6}>
-              <Card
-                title="Tasks"
-                category="Backend development"
-                stats="Updated 3 minutes ago"
-                statsIcon="fa fa-history"
-                content={
-                  <div className="table-full-width">
-                    <table className="table">
-                      <Tasks />
-                    </table>
-                  </div>
-                }
-              />
-            </Col>
-          </Row> */}
         </Grid>
       </div>
     );

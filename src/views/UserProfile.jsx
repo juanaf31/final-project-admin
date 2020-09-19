@@ -35,7 +35,6 @@ import avatar from "assets/img/faces/face-3.jpg";
 
 class UserProfile extends Component {
   componentDidMount(){
-    // console.log(this.props.admin)
   }
   render() {
     return (

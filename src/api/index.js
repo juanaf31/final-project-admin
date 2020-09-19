@@ -19,7 +19,6 @@ export const getUsers = () => {
 		return axios
 			.get('/accountmanagement/allusers', { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log('actions', response.data.response);
 				dispatch({ type: RECEIVE_USERS, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -34,7 +33,6 @@ export const getProviders = () => {
 		return axios
 			.get('/accountmanagement/allproviders', { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log('actions', response.data.response);
 				dispatch({ type: RECEIVE_PROVIDERS, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -45,12 +43,10 @@ export const getProviders = () => {
 
 export const getAssets = () => {
 	let token = sessionStorage.getItem('token');
-	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.get('/accountmanagement/allassets', { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log('actions', response.data.response);
 				dispatch({ type: RECEIVE_ASSETS, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -65,8 +61,6 @@ export const getReviews = () => {
 		return axios
 			.get('/accountmanagement/allreviews', { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				console.log('actions', response.data.response);
-
 				dispatch({
 					type: RECEIVE_REVIEWS,
 					payload: response.data.response
@@ -84,7 +78,6 @@ export const getAssetsNotApproved = () => {
 		return axios
 			.get('/accountmanagement/allassetsnotapproved', { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log('actions', response.data.response);
 				dispatch({ type: RECEIVE_NOT_APPROVED, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -95,12 +88,10 @@ export const getAssetsNotApproved = () => {
 
 export const approve = (id) => {
 	let token = sessionStorage.getItem('token');
-	// console.log('masuk approve');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/approveasset/${id}`, { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				console.log(response);
 				dispatch({ type: APPROVE, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -111,12 +102,10 @@ export const approve = (id) => {
 
 export const deleteUser = (id) => {
 	let token = sessionStorage.getItem('token');
-	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deleteuser/${id}`, { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log(response.data.response);
 				dispatch({ type: DELETE_USER, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -127,12 +116,10 @@ export const deleteUser = (id) => {
 
 export const deleteProvider = (id) => {
 	let token = sessionStorage.getItem('token');
-	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deleteprovider/${id}`, { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log(response.data.response);
 				dispatch({ type: DELETE_PROVIDER, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -143,12 +130,10 @@ export const deleteProvider = (id) => {
 
 export const deleteAsset = (id) => {
 	let token = sessionStorage.getItem('token');
-	// console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deleteasset/${id}`, { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				// console.log(response.data.response);
 				dispatch({ type: DELETE_ASSET, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -159,13 +144,10 @@ export const deleteAsset = (id) => {
 
 export const deleteReview = (id) => {
 	let token = sessionStorage.getItem('token');
-	// console.log('masuk delete review');
-	// console.log(id);
 	return (dispatch) => {
 		return axios
 			.put(`/accountmanagement/deletecomment/${id}`, { headers: { Authorization: `Bearer ${token}` } })
 			.then((response) => {
-				console.log('response', response);
 				dispatch({ type: DELETE_REVIEW, payload: response.data.response });
 			})
 			.catch((error) => {
@@ -175,12 +157,10 @@ export const deleteReview = (id) => {
 };
 
 export const getReport = (start, end, id) => {
-	console.log('masuk');
 	return (dispatch) => {
 		return axios
 			.get(`/adminreports/daily?start=${start}&end=${end}&id=${id}`)
 			.then((response) => {
-				console.log(response.data);
 				dispatch({ type: GET_REPORT, payload: response.data.response });
 			})
 			.catch((error) => {

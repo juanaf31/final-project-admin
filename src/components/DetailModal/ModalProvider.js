@@ -1,45 +1,25 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
-import { Typography } from '@material-ui/core';
 
 function ModalProvider(props) {
 	const [ disable, setDisable ] = useState(true);
-
-	const [ selected, setSelected ] = useState(props.data);
 
 	const handleClose = () => {
 		props.closeModal();
 		setDisable(true);
 	};
 
-	const handleEdit = () => {
-		setDisable(false);
-		// console.log('selected', selected);
-	};
 	const handleSave = () => {
 		props.closeModal();
-		// updateGoods(agoods.goods_id, selected);
 		setDisable(true);
 	};
 
-	// const handleChange = (key, val) => {
-	// 	setSelected({ ...selected, [key]: val });
-	// };
-
-	useEffect(
-		() => {
-			// console.log(props.data);
-			// setSelected(agoods);
-		},
-		[ props.modal ]
-	);
+	useEffect(() => {}, [ props.modal ]);
 
 	return (
 		<div>

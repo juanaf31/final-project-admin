@@ -1,12 +1,9 @@
-import React, { Component, useState } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import AdminLayout from 'layouts/Admin.jsx';
 import Login from 'views/Login';
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { connect } from 'react-redux';
 
 class App extends Component {
-	// const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -16,7 +13,6 @@ class App extends Component {
 
 	componentWillMount() {
 		const token = sessionStorage.getItem('token');
-		// console.log(token);
 		if (token != null) {
 			this.setState({ isLoggedIn: true });
 		} else {

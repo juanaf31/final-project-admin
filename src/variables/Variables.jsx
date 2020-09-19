@@ -548,8 +548,8 @@ var responsiveSales = [
   ]
 ];
 var legendSales = {
-  names: ["Open", "Click", "Click Second Time"],
-  types: ["info", "danger", "warning"]
+  names: ["Review"],
+  types: ["success", "danger", "warning"]
 };
 
 // Data for Bar Chart

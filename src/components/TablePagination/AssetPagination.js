@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -12,7 +12,6 @@ import { connect, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { Pageview } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
-import ModalProvider from 'components/DetailModal/ModalProvider';
 import ModalAsset from 'components/DetailModal/ModalAsset';
 import { getAssets, deleteAsset } from '../../api';
 import Swal from 'sweetalert2';
@@ -41,7 +40,6 @@ const AssetPagination = (props) => {
 	// props.getAssets();
 	const handleDetail = (data) => {
 		setDetail(data);
-		// console.log(detail);
 		setModal(true);
 	};
 
@@ -52,10 +50,6 @@ const AssetPagination = (props) => {
 	const handleChangeRowsPerPage = (event) => {
 		setRowsPerPage(+event.target.value);
 		setPage(0);
-	};
-
-	const getData = () => {
-		console.log(1 + 1);
 	};
 
 	const handleDelete = (id) => {
@@ -73,7 +67,6 @@ const AssetPagination = (props) => {
 				setData(listAssets);
 				Swal.fire('Deleted!', 'Asset has been deleted.', 'success').then((result) => {
 					if (result.value) {
-						// console.log('tes');
 					}
 					props.getAssets();
 				});
@@ -86,8 +79,6 @@ const AssetPagination = (props) => {
 	}, []);
 	return (
 		<div>
-			{console.log('render di return')}
-			{/* <button onClick={handleDelete}>Del</button> */}
 			<Paper className={classes.root}>
 				<TableContainer className={classes.container}>
 					<Table stickyHeader aria-label="sticky table">

@@ -16,13 +16,10 @@
 
 */
 import React, { Component } from "react";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Grid, Row } from "react-bootstrap";
 import { getUsers,getProviders,getAssets,getReviews } from '../api';
-import Card from "components/Card/Card.jsx";
-import ReviewPagination from "components/TablePagination/ReviewPagination"
 import { connect } from 'react-redux';
 import Datepicker from '../components/DatePicker/DatePicker'
-import ReportPagination from "components/TablePagination/ReportPagination";
 
 class ReportList extends Component {
   constructor(props) {

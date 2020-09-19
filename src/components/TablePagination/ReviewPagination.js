@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,9 +10,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { connect, useSelector } from 'react-redux';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Pageview } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
-import ModalProvider from 'components/DetailModal/ModalProvider';
 import { getReviews, deleteReview } from '../../api';
 import Swal from 'sweetalert2';
 
@@ -32,9 +30,6 @@ const ReviewPagination = (props) => {
 
 	const listReviews = useSelector((state) => state.reviewreducer.listReviews);
 	const [ data, setData ] = useState([]);
-
-	const [ modal, setModal ] = useState(false);
-	const [ detail, setDetail ] = useState([]);
 
 	const handleDelete = (id) => {
 		Swal.fire({
@@ -68,10 +63,8 @@ const ReviewPagination = (props) => {
 	};
 	useEffect(
 		() => {
-			console.log('render useEffect');
 			props.getReviews();
 			return () => {
-				console.log('render di return useeffect');
 				props.getReviews();
 			};
 		},

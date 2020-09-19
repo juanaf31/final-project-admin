@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import React, { useEffect, useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -9,12 +9,9 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import { connect, useSelector } from 'react-redux';
-import DeleteIcon from '@material-ui/icons/Delete';
 import { Check, Pageview } from '@material-ui/icons';
 import { Button } from '@material-ui/core';
-import ModalProvider from 'components/DetailModal/ModalProvider';
 import { getAssetsNotApproved, approve } from '../../api';
-import { green } from '@material-ui/core/colors';
 import ModalAsset from 'components/DetailModal/ModalAsset';
 
 const useStyles = makeStyles({
@@ -23,12 +20,6 @@ const useStyles = makeStyles({
 	},
 	container: {
 		maxHeight: 440
-	}
-});
-
-const theme = createMuiTheme({
-	palette: {
-		primary: green
 	}
 });
 
@@ -45,7 +36,6 @@ const NotApprovedAssetPagination = (props) => {
 
 	const handleDetail = (data) => {
 		setDetail(data);
-		// console.log(detail);
 		setModal(true);
 	};
 
@@ -68,10 +58,8 @@ const NotApprovedAssetPagination = (props) => {
 
 	useEffect(
 		() => {
-			// console.log('render useEffect');
 			props.getAssetsNotApproved();
 			return () => {
-				// console.log('render di return useeffect');
 				props.getAssetsNotApproved();
 			};
 		},

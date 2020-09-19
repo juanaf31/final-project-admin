@@ -16,10 +16,9 @@
 
 */
 import React, { Component } from "react";
-import { Grid, Row, Col, Alert } from "react-bootstrap";
+import { Grid, Row, Col } from "react-bootstrap";
 import Card from "components/Card/Card.jsx";
 
-import Button from "components/CustomButton/CustomButton.jsx";
 import NotApprovedAssetPagination from "components/TablePagination/NotApprovedAssetPagination";
 
 class Notifications extends Component {
@@ -41,42 +40,6 @@ class Notifications extends Component {
               />
             </Col>
 
-            {/* <Col md={12}>
-              <Card
-                plain
-                title="List Of Providers"
-                category=""
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <ProviderPagination/>
-                }
-              />
-            </Col>
-            <Col md={12}>
-              <Card
-                plain
-                title="List Of Assets"
-                category=""
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <AssetPagination/>
-                }
-              />
-            </Col>
-            <Col md={12}>
-              <Card
-                plain
-                title="List Of Reviews"
-                category=""
-                ctTableFullWidth
-                ctTableResponsive
-                content={
-                  <ReviewPagination/>
-                }
-              />
-            </Col> */}
           </Row>
         </Grid>
       </div>

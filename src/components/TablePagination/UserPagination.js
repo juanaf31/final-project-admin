@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,7 +8,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { getUsers, deleteUser } from '../../api';
 import { Button } from '@material-ui/core';
 import ModalUser from 'components/DetailModal/ModalUser';
@@ -46,7 +46,6 @@ const UserPagination = (props) => {
 
 	const handleDetail = (data) => {
 		setDetail(data);
-		// console.log(detail);
 		setModal(true);
 	};
 

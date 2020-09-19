@@ -18,7 +18,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/animate.min.css';
@@ -31,7 +31,6 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import combineReducer from './reducers';
 
-import AdminLayout from 'layouts/Admin.jsx';
 import App from 'App';
 const store = createStore(combineReducer, applyMiddleware(thunk));
 

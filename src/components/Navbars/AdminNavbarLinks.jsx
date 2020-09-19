@@ -16,7 +16,7 @@
 
 */
 import React, { Component } from "react";
-import { NavItem, Nav, NavDropdown, MenuItem } from "react-bootstrap";
+import { NavItem, Nav } from "react-bootstrap";
 import { Redirect } from "react-router";
 
 class AdminNavbarLinks extends Component {

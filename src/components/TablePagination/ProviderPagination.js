@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -35,13 +35,9 @@ const ProviderPagination = (props) => {
 
 	const [ modal, setModal ] = useState(false);
 	const [ detail, setDetail ] = useState([]);
-	// const [ ID, setID ] = useState('');
-	// const [ mydata, setMydata ] = useState('');
-	const [ clicked, setClicked ] = useState(false);
 
 	const handleDetail = (data) => {
 		setDetail(data);
-		// console.log(detail);
 		setModal(true);
 	};
 

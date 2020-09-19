@@ -1,6 +1,5 @@
 import { login } from '../api';
-import React, { Component, useEffect, useState } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import { Redirect } from 'react-router';
 const Login = () => {
@@ -15,7 +14,6 @@ const Login = () => {
 	};
 
 	const handleLogin = () => {
-		// console.log(selected);
 		login(selected)
 			.then((res) => {
 				sessionStorage.setItem('token', res.data.token);
@@ -38,17 +36,11 @@ const Login = () => {
 						text: 'Check Your Username or Password'
 					});
 				}
-				//
-				// console.log(res.data);
 			})
 			.catch((err) => {
 				throw err;
 			});
 	};
-
-	useEffect(() => {
-		// setRedirect(true);
-	}, []);
 
 	const formLogin = () => {
 		return (

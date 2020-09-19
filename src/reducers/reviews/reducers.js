@@ -8,10 +8,8 @@ const initialState = {
 export const reviewreducer = (state = initialState, action) => {
 	switch (action.type) {
 		case RECEIVE_REVIEWS:
-			console.log(action.payload2);
 			return { ...state, listReviews: action.payload };
 		case DELETE_REVIEW:
-			console.log(action.payload);
 			return { ...state, isDeleted: action.payload };
 		default:
 			return state;
