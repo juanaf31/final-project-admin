@@ -18,7 +18,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './assets/css/animate.min.css';
@@ -36,9 +36,9 @@ const store = createStore(combineReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
 	<Provider store={store}>
-		<BrowserRouter>
+		<HashRouter>
 			<App />
-		</BrowserRouter>
+		</HashRouter>
 	</Provider>,
 	document.getElementById('root')
 );
