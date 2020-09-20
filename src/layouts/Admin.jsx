@@ -28,7 +28,12 @@ import { style } from "variables/Variables.jsx";
 
 import routes from "routes.js";
 
+
 import image from "assets/img/download.jpg";
+
+import { createBrowserHistory, createHashHistory } from "history";
+
+const history = createHashHistory()
 
 class Admin extends Component {
   constructor(props) {
@@ -122,6 +127,13 @@ class Admin extends Component {
     }
   };
   componentDidMount() {
+    var token = sessionStorage.getItem('token')
+    
+    if (token === null || token === undefined) {
+      history.push('/login')
+      history.go(0)
+      console.log('masuk dashboard')
+    }else{
     this.setState({ _notificationSystem: this.refs.notificationSystem });
     var _notificationSystem = this.refs.notificationSystem;
     var color = Math.floor(Math.random() * 4 + 1);
@@ -154,7 +166,7 @@ class Admin extends Component {
   //     position: "tr",
   //     autoDismiss: 15
   //   });
-  }
+  }}
   componentDidUpdate(e) {
     if (
       window.innerWidth < 993 &&

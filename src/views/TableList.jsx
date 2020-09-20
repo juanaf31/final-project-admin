@@ -25,13 +25,19 @@ import UserPagination from "components/TablePagination/UserPagination";
 import ProviderPagination from "components/TablePagination/ProviderPagination";
 import AssetPagination from "components/TablePagination/AssetPagination";
 import ReviewPagination from "components/TablePagination/ReviewPagination"
+import { createBrowserHistory, createHashHistory } from "history";
+
+const history = createHashHistory()
 
 class TableList extends Component {
   componentDidMount(){
-    // this.props.getUsers();
-    // this.props.getProviders()
-    // this.props.getAssets()
-    // this.props.getReviews()
+    var token = sessionStorage.getItem('token')
+    
+    if (token === null || token === undefined) {
+      history.push('/login')
+      history.go(0)
+      console.log('masuk dashboard')
+    }
   }
   render() {
     return (

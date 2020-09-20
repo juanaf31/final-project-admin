@@ -20,6 +20,9 @@ import { Grid, Row } from "react-bootstrap";
 import { getUsers,getProviders,getAssets,getReviews } from '../api';
 import { connect } from 'react-redux';
 import Datepicker from '../components/DatePicker/DatePicker'
+import { createBrowserHistory, createHashHistory } from "history";
+
+const history = createHashHistory()
 
 class ReportList extends Component {
   constructor(props) {
@@ -36,11 +39,14 @@ class ReportList extends Component {
   }
   
   componentDidMount(){
-    // this.props.getUsers();
-    // this.props.getProviders()
-    // this.props.getAssets()
-    // this.props.getReviews()
+    var token = sessionStorage.getItem('token')
+    
+    if (token === null || token === undefined) {
+      history.push('/login')
+      history.go(0)
+      console.log('masuk dashboard')
   }
+}
   render() {
     return (
       <div className="content">
