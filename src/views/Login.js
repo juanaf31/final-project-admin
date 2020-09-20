@@ -94,7 +94,7 @@ const Login = () => {
 			</div>
 		);
 	};
-	return <div>{redirect ? <Redirect to="/admin/dashboard" /> : formLogin()}</div>;
+	return redirect ? <Redirect to="/admin/dashboard" /> : formLogin();
 };
 // const mapDispatchToProps = { login };
 // const mapDispatchToProps = (dispatch) => {

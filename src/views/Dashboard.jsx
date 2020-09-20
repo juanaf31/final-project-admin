@@ -31,7 +31,9 @@ import {
 import { getUsers,getProviders,getAssets,getReviews } from '../api';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import { createBrowserHistory, createHashHistory } from "history";
 
+const history = createHashHistory()
 class Dashboard extends Component {
   createLegend(json) {
     var legend = [];
@@ -79,10 +81,19 @@ class Dashboard extends Component {
 
    
   componentDidMount() {
-    this.props.getUsers();
-    this.props.getProviders()
-    this.props.getAssets()
-    this.props.getReviews()
+    var token = sessionStorage.getItem('token')
+    
+    if (token === null || token === undefined) {
+      history.push('/login')
+      history.go(0)
+      console.log('masuk dashboard')
+		} else {
+			// this.setState({...this.state,isLoggedIn:true});
+      this.props.getUsers();
+      this.props.getProviders()
+      this.props.getAssets()
+      this.props.getReviews()
+		}
     
   }
   
